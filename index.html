@@ -8,381 +8,345 @@
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
 
     :root {
-      --ink: #0d0d14;
-      --ink2: #3a3a4a;
-      --muted: #7c7c8e;
-      --bg: #fafafa;
-      --surface: #ffffff;
-      --border: #ebebf0;
-      --accent: #5b5fc7;
-      --accent-light: #eeeeff;
-      --green: #15803d;
-      --green-light: #dcfce7;
+      --ink: #111111;
+      --ink2: #444;
+      --muted: #888;
+      --light: #bbb;
+      --bg: #fff;
+      --surface: #fafafa;
+      --border: #ebebeb;
+      --accent: #111;
+      --green: #16a34a;
       --red: #dc2626;
-      --red-light: #fff1f1;
-      --olive: #166534;
-      --shadow-sm: 0 1px 2px rgba(0,0,0,.04), 0 2px 8px rgba(0,0,0,.05);
-      --shadow-md: 0 4px 6px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.07);
+      --olive-green: #15803d;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    html { scroll-behavior: smooth; }
     body {
       font-family: 'Noto Sans KR', -apple-system, sans-serif;
       background: var(--bg);
       color: var(--ink);
       font-size: 15px;
-      line-height: 1.7;
+      line-height: 1.75;
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ── TOPBAR ── */
+    /* ── DEADLINE BAR ── */
     .topbar {
       position: sticky; top: 0; z-index: 200;
       background: var(--red);
       color: #fff;
+      text-align: center;
       padding: 9px 20px;
-      display: flex; align-items: center; justify-content: center; gap: 10px;
-      font-size: 12.5px; font-weight: 700; letter-spacing: .02em;
+      font-size: 13px; font-weight: 600;
+      letter-spacing: .01em;
     }
-    .topbar-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,.5); animation: blink 1.4s ease-in-out infinite; }
-    @keyframes blink { 0%,100%{opacity:.5} 50%{opacity:1} }
-    .topbar-sub { font-weight: 400; opacity: .8; }
+    .topbar span { opacity: .75; font-weight: 400; margin-left: 6px; }
 
     /* ── NAV ── */
     .nav {
       position: sticky; top: 38px; z-index: 190;
-      background: rgba(255,255,255,.92);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: rgba(255,255,255,.95);
+      backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border);
       overflow-x: auto; white-space: nowrap;
       scrollbar-width: none;
     }
     .nav::-webkit-scrollbar { display: none; }
-    .nav-inner { display: inline-flex; padding: 0 20px; }
+    .nav-inner { display: inline-flex; padding: 0 24px; }
     .nav a {
-      display: inline-flex; align-items: center; gap: 5px;
-      padding: 12px 14px;
+      display: inline-block;
+      padding: 13px 14px;
       font-size: 13px; font-weight: 500; color: var(--muted);
       text-decoration: none; white-space: nowrap;
-      border-bottom: 2px solid transparent;
+      border-bottom: 1.5px solid transparent;
       transition: color .15s, border-color .15s;
     }
-    .nav a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+    .nav a:hover { color: var(--ink); border-bottom-color: var(--ink); }
 
     /* ── HERO ── */
     .hero {
-      background: var(--ink);
-      color: #fff;
-      padding: 64px 24px 72px;
-      text-align: center;
-      position: relative;
+      padding: 72px 24px 64px;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .hero-kicker {
+      font-size: 12px; font-weight: 600; letter-spacing: .12em;
+      color: var(--muted); text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(30px, 6vw, 52px);
+      font-weight: 900; line-height: 1.15;
+      letter-spacing: -.03em;
+      margin-bottom: 16px;
+    }
+    .hero-desc { font-size: 15px; color: var(--muted); margin-bottom: 40px; }
+    .hero-dates {
+      display: flex; gap: 0;
+      border: 1px solid var(--border);
+      border-radius: 14px;
       overflow: hidden;
     }
-    .hero-bg {
-      position: absolute; inset: 0; pointer-events: none;
-      background:
-        radial-gradient(ellipse 60% 50% at 80% 20%, rgba(91,95,199,.35) 0%, transparent 70%),
-        radial-gradient(ellipse 50% 60% at 10% 80%, rgba(21,128,61,.2) 0%, transparent 65%);
+    .hero-date {
+      flex: 1; padding: 16px 20px;
+      border-right: 1px solid var(--border);
     }
-    .hero-inner { position: relative; max-width: 680px; margin: 0 auto; }
-    .hero-pill {
-      display: inline-flex; align-items: center; gap: 7px;
-      background: rgba(255,255,255,.08);
-      border: 1px solid rgba(255,255,255,.14);
-      border-radius: 999px;
-      padding: 5px 14px 5px 8px;
-      font-size: 12px; margin-bottom: 24px;
-    }
-    .hero-pill-dot { width: 6px; height: 6px; border-radius: 50%; background: #4ade80; }
-    .hero-title {
-      font-size: clamp(28px, 6vw, 52px);
-      font-weight: 900; line-height: 1.15; letter-spacing: -.02em;
-      margin-bottom: 14px;
-    }
-    .hero-title em { color: #818cf8; font-style: normal; }
-    .hero-desc { font-size: 15px; color: rgba(255,255,255,.55); margin-bottom: 36px; }
-    .hero-stats {
-      display: inline-flex; gap: 0;
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.1);
-      border-radius: 16px;
-      overflow: hidden;
-    }
-    .hero-stat {
-      padding: 14px 24px;
-      border-right: 1px solid rgba(255,255,255,.08);
-      text-align: center;
-    }
-    .hero-stat:last-child { border-right: none; }
-    .hero-stat-val { font-size: 18px; font-weight: 900; line-height: 1; margin-bottom: 4px; }
-    .hero-stat-val.g { color: #4ade80; }
-    .hero-stat-val.r { color: #f87171; }
-    .hero-stat-label { font-size: 11px; color: rgba(255,255,255,.45); }
+    .hero-date:last-child { border-right: none; }
+    .hero-date-label { font-size: 11px; color: var(--muted); margin-bottom: 4px; font-weight: 500; }
+    .hero-date-val { font-size: 18px; font-weight: 900; letter-spacing: -.02em; }
+    .hero-date-val.red { color: var(--red); }
+    .hero-date-val.green { color: var(--green); }
 
     /* ── LAYOUT ── */
-    .wrap { max-width: 780px; margin: 0 auto; padding: 0 20px; }
-    section { padding: 52px 0; }
-    section + section { border-top: 1px solid var(--border); }
+    .wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+    section { padding: 56px 0; border-top: 1px solid var(--border); }
 
-    .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .14em; color: var(--accent); margin-bottom: 8px; }
-    .sec-title { font-size: clamp(22px, 3.5vw, 30px); font-weight: 900; letter-spacing: -.02em; margin-bottom: 28px; }
-
-    /* ── CARDS ── */
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      box-shadow: var(--shadow-sm);
+    .eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: .14em;
+      color: var(--muted); text-transform: uppercase; margin-bottom: 10px;
+    }
+    .sec-title {
+      font-size: clamp(22px, 3.5vw, 28px); font-weight: 900;
+      letter-spacing: -.02em; margin-bottom: 32px;
     }
 
     /* ── STEPS ── */
-    .steps { display: flex; flex-direction: column; gap: 12px; }
+    .steps { display: flex; flex-direction: column; }
     .step {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      box-shadow: var(--shadow-sm);
-      padding: 22px 24px;
-      display: flex; gap: 18px; align-items: flex-start;
-      transition: box-shadow .2s, transform .2s;
+      display: flex; gap: 20px;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
     }
-    .step:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }
-    .step-badge {
-      flex-shrink: 0;
-      width: 48px; height: 48px; border-radius: 14px;
+    .step:last-child { border-bottom: none; }
+    .step-left { flex-shrink: 0; width: 44px; }
+    .step-num {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--ink); color: #fff;
+      font-size: 13px; font-weight: 700;
       display: flex; align-items: center; justify-content: center;
-      font-size: 22px;
     }
-    .step-badge.b { background: #eff0ff; }
-    .step-badge.g { background: var(--green-light); }
-    .step-badge.r { background: var(--red-light); }
-    .step-when { font-size: 11.5px; font-weight: 700; margin-bottom: 3px; letter-spacing: .02em; }
-    .step-when.blue { color: var(--accent); }
+    .step-num.outline {
+      background: transparent; color: var(--ink);
+      border: 1.5px solid var(--border);
+    }
+    .step-when { font-size: 12px; font-weight: 600; color: var(--muted); margin-bottom: 4px; }
     .step-when.red { color: var(--red); }
-    .step-name { font-size: 16px; font-weight: 700; margin-bottom: 6px; letter-spacing: -.01em; }
-    .step-desc { font-size: 13.5px; color: var(--ink2); line-height: 1.65; }
-    .step-desc strong { color: var(--ink); }
+    .step-name { font-size: 16px; font-weight: 700; margin-bottom: 7px; }
+    .step-desc { font-size: 13.5px; color: var(--ink2); line-height: 1.7; }
+    .step-desc strong { color: var(--ink); font-weight: 700; }
 
     /* ── VIDEO ── */
-    .video-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
-    @media(max-width:540px) { .video-grid { grid-template-columns: 1fr; } }
+    .video-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+    @media(max-width:520px) { .video-cols { grid-template-columns: 1fr; } }
     .vcol {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 16px;
-      box-shadow: var(--shadow-sm);
+      border-radius: 14px;
       padding: 22px;
     }
     .vcol-tag {
-      display: inline-block; border-radius: 8px; padding: 3px 10px;
-      font-size: 11px; font-weight: 700; margin-bottom: 12px;
+      font-size: 11px; font-weight: 700; letter-spacing: .08em;
+      color: var(--muted); text-transform: uppercase; margin-bottom: 10px;
     }
-    .vcol-tag.g { background: var(--green-light); color: var(--olive); }
-    .vcol-tag.b { background: var(--accent-light); color: var(--accent); }
     .vcol-name { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
     .vcol-body { font-size: 13px; color: var(--ink2); line-height: 1.65; }
 
-    /* flow */
-    .flow { display: flex; flex-direction: column; gap: 3px; }
-    .flow-row { display: flex; gap: 0; align-items: stretch; }
-    .flow-spine { display: flex; flex-direction: column; align-items: center; width: 28px; flex-shrink: 0; }
-    .flow-circle { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); margin-top: 17px; flex-shrink: 0; }
-    .flow-line { flex: 1; width: 1.5px; background: var(--border); }
+    .flow { display: flex; flex-direction: column; }
+    .flow-row { display: flex; gap: 16px; }
+    .flow-spine { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; width: 16px; }
+    .flow-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ink); margin-top: 18px; flex-shrink: 0; }
+    .flow-dot.green { background: var(--green); }
+    .flow-line { flex: 1; width: 1px; background: var(--border); }
     .flow-row:last-child .flow-line { display: none; }
-    .flow-card {
-      flex: 1;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 14px 16px;
-      margin: 4px 0;
-    }
-    .flow-label { font-size: 11px; font-weight: 700; color: var(--accent); margin-bottom: 3px; }
-    .flow-text { font-size: 13.5px; color: var(--ink); line-height: 1.6; }
+    .flow-body { flex: 1; padding: 14px 0 24px; }
+    .flow-label { font-size: 11px; font-weight: 700; color: var(--muted); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 4px; }
+    .flow-label.green { color: var(--green); }
+    .flow-text { font-size: 13.5px; color: var(--ink); line-height: 1.65; }
     .flow-text .dim { color: var(--muted); }
 
     /* ── PRODUCT ── */
-    .usp {
+    .usp-box {
       background: var(--ink);
-      border-radius: 20px;
-      padding: 26px 28px;
       color: #fff;
-      display: flex; gap: 18px; align-items: flex-start;
-      margin-bottom: 20px;
-      position: relative; overflow: hidden;
+      border-radius: 16px;
+      padding: 28px 28px;
+      margin-bottom: 24px;
     }
-    .usp::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse 55% 70% at 90% 50%, rgba(91,95,199,.4) 0%, transparent 70%);
-    }
-    .usp-emo { font-size: 36px; flex-shrink: 0; position: relative; }
-    .usp-inner { position: relative; }
-    .usp-kicker { font-size: 11px; font-weight: 700; letter-spacing: .1em; color: #818cf8; margin-bottom: 6px; }
-    .usp-headline { font-size: 17px; font-weight: 700; line-height: 1.45; margin-bottom: 5px; }
-    .usp-headline em { color: #818cf8; font-style: normal; }
-    .usp-hint { font-size: 13px; color: rgba(255,255,255,.5); }
+    .usp-label { font-size: 11px; font-weight: 700; letter-spacing: .12em; color: #888; margin-bottom: 8px; }
+    .usp-title { font-size: 17px; font-weight: 700; line-height: 1.5; }
+    .usp-title em { color: #aaa; font-style: normal; }
+    .usp-hint { font-size: 13px; color: #666; margin-top: 6px; }
 
-    .modes { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 18px; }
-    @media(max-width:540px) { .modes { grid-template-columns: 1fr; } }
+    .modes { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 20px; }
+    @media(max-width:520px) { .modes { grid-template-columns: 1fr; } }
     .mode {
-      border-radius: 16px; padding: 20px 16px; text-align: center;
-      border: 1.5px solid transparent;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 16px;
+      text-align: center;
     }
-    .mode.m1 { background: #eff6ff; border-color: #bfdbfe; }
-    .mode.m2 { background: #f5f3ff; border-color: #ddd6fe; }
-    .mode.m3 { background: var(--green-light); border-color: #86efac; }
-    .mode-n { font-size: 10.5px; font-weight: 700; letter-spacing: .08em; margin-bottom: 8px; }
-    .m1 .mode-n { color: #3b82f6; }
-    .m2 .mode-n { color: #8b5cf6; }
-    .m3 .mode-n { color: var(--green); }
+    .mode-num { font-size: 10.5px; font-weight: 700; letter-spacing: .1em; color: var(--muted); margin-bottom: 8px; }
     .mode-name { font-size: 14px; font-weight: 700; margin-bottom: 5px; }
-    .mode-freq { font-size: 12px; font-weight: 700; color: var(--accent); margin-bottom: 7px; }
-    .mode-desc { font-size: 12px; color: var(--ink2); line-height: 1.55; }
+    .mode-freq { font-size: 12px; font-weight: 600; color: var(--ink2); margin-bottom: 7px; }
+    .mode-desc { font-size: 12px; color: var(--muted); line-height: 1.55; }
 
-    .spec-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
-    .spec {
+    .specs { display: flex; flex-wrap: wrap; gap: 8px; }
+    .spec-tag {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 999px;
       padding: 7px 15px;
       font-size: 13px; color: var(--ink2);
-      box-shadow: var(--shadow-sm);
     }
 
     /* ── SALE ── */
-    .sale {
-      background: linear-gradient(145deg, #052e16 0%, #14532d 50%, #166534 100%);
-      border-radius: 22px;
-      padding: 36px 32px;
+    .sale-box {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+    }
+    .sale-top {
+      background: var(--olive-green);
       color: #fff;
+      padding: 28px 28px 24px;
       text-align: center;
-      position: relative; overflow: hidden;
     }
-    .sale::before {
-      content: '';
-      position: absolute; inset: 0;
-      background:
-        radial-gradient(ellipse 45% 40% at 85% 15%, rgba(74,222,128,.2) 0%, transparent 65%),
-        radial-gradient(ellipse 40% 35% at 15% 85%, rgba(255,255,255,.07) 0%, transparent 60%);
-    }
-    .sale-inner { position: relative; }
-    .sale-badge {
-      display: inline-block;
-      background: rgba(255,255,255,.15);
-      border: 1px solid rgba(255,255,255,.2);
-      border-radius: 999px;
-      padding: 5px 18px;
-      font-size: 12px; font-weight: 900; letter-spacing: .12em;
-      margin-bottom: 16px;
-    }
-    .sale-period { font-size: 13px; opacity: .7; margin-bottom: 22px; }
+    .sale-period { font-size: 12px; opacity: .75; margin-bottom: 14px; }
     .sale-price-row {
-      display: flex; justify-content: center; align-items: center;
-      gap: 16px; flex-wrap: wrap; margin-bottom: 24px;
+      display: flex; align-items: center; justify-content: center;
+      gap: 14px; flex-wrap: wrap; margin-bottom: 6px;
     }
-    .sale-orig { font-size: 16px; text-decoration: line-through; opacity: .4; }
-    .sale-main { font-size: 40px; font-weight: 900; letter-spacing: -.03em; line-height: 1; }
+    .sale-orig { font-size: 15px; text-decoration: line-through; opacity: .5; }
+    .sale-main { font-size: 38px; font-weight: 900; letter-spacing: -.03em; line-height: 1; }
     .sale-disc {
-      background: #ef4444;
-      border-radius: 999px; padding: 5px 13px;
+      background: rgba(255,255,255,.2);
+      border: 1px solid rgba(255,255,255,.3);
+      border-radius: 999px; padding: 4px 12px;
       font-size: 12px; font-weight: 700;
     }
-    .gift {
-      background: rgba(255,255,255,.1);
-      border: 1px solid rgba(255,255,255,.15);
-      border-radius: 16px;
-      padding: 20px 22px; text-align: left;
+    .sale-bottom { padding: 24px 28px; }
+    .gift-title { font-size: 13px; font-weight: 700; margin-bottom: 14px; }
+    .gift-row {
+      display: flex; justify-content: space-between;
+      font-size: 13px; color: var(--ink2);
+      padding: 9px 0; border-bottom: 1px solid var(--border);
     }
-    .gift-title { font-size: 13px; font-weight: 700; text-align: center; margin-bottom: 14px; }
-    .gift-item { display: flex; justify-content: space-between; font-size: 13px; padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,.1); }
-    .gift-item:last-of-type { border: none; }
+    .gift-row:last-of-type { border: none; }
     .gift-total {
       display: flex; justify-content: space-between;
-      font-weight: 700; font-size: 15px;
-      margin-top: 12px; padding-top: 12px;
-      border-top: 1px solid rgba(255,255,255,.2);
+      font-weight: 700; font-size: 14px;
+      padding-top: 12px; margin-top: 4px;
+      border-top: 1px solid var(--border);
     }
 
     /* ── COPY ── */
     .copy-list { display: flex; flex-direction: column; gap: 8px; }
     .copy-item {
-      background: var(--surface);
-      border: 1.5px solid var(--border);
-      border-radius: 14px;
-      padding: 16px 56px 16px 18px;
-      font-size: 14px; line-height: 1.6;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 15px 56px 15px 18px;
+      font-size: 14px; color: var(--ink);
+      line-height: 1.6;
       cursor: pointer;
       position: relative;
-      transition: border-color .18s, box-shadow .18s, transform .18s;
-      box-shadow: var(--shadow-sm);
+      transition: border-color .15s, background .15s;
     }
-    .copy-item:hover { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(91,95,199,.1), var(--shadow-sm); transform: translateY(-1px); }
-    .copy-item.copied { border-color: #22c55e; background: #f0fdf4; }
-    .copy-kicker { font-size: 11px; font-weight: 700; color: var(--accent); margin-bottom: 4px; }
+    .copy-item:hover { border-color: var(--ink); background: var(--surface); }
+    .copy-item.copied { border-color: var(--green); background: #f0fdf4; }
+    .copy-kicker { font-size: 11px; font-weight: 700; color: var(--muted); margin-bottom: 3px; }
     .copy-item.copied .copy-kicker { color: var(--green); }
     .copy-btn {
       position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 4px 10px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 7px; padding: 4px 10px;
       font-size: 11px; font-weight: 600; color: var(--muted);
-      transition: background .15s, color .15s;
+      transition: all .15s;
     }
-    .copy-item:hover .copy-btn { background: var(--accent-light); color: var(--accent); border-color: var(--accent); }
+    .copy-item:hover .copy-btn { background: var(--ink); color: #fff; border-color: var(--ink); }
     .copy-item.copied .copy-btn { background: #dcfce7; color: var(--green); border-color: #86efac; }
 
     .tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 18px; }
     .tag {
-      border-radius: 999px; padding: 6px 14px; font-size: 13px;
-      border: 1px solid transparent; cursor: pointer;
-      user-select: all; transition: opacity .15s;
+      border: 1px solid var(--border);
+      border-radius: 999px; padding: 6px 14px;
+      font-size: 13px; cursor: pointer; user-select: all;
+      transition: opacity .15s;
     }
-    .tag:hover { opacity: .7; }
-    .tag.p { background: var(--accent-light); border-color: #c7d2fe; color: var(--accent); }
-    .tag.g { background: var(--bg); border-color: var(--border); color: var(--ink2); }
+    .tag:hover { opacity: .6; }
+    .tag.dark { background: var(--ink); color: #fff; border-color: var(--ink); }
+    .tag.light { background: var(--surface); color: var(--ink2); }
+
+    /* ── COLLAB TAG ── */
+    .collab-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 14px;
+    }
+    .collab-label {
+      font-size: 11px; font-weight: 700; letter-spacing: .12em;
+      color: var(--red); text-transform: uppercase; margin-bottom: 12px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .collab-label::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--red); }
+    .collab-desc { font-size: 13px; color: var(--muted); margin-bottom: 14px; }
+    .collab-accounts { display: flex; flex-wrap: wrap; gap: 8px; }
+    .collab-account {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 999px; padding: 8px 18px;
+      font-size: 14px; font-weight: 700; color: var(--ink);
+    }
+    .collab-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--red); flex-shrink: 0; }
 
     /* ── DO/DON'T ── */
     .rules { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    @media(max-width:540px) { .rules { grid-template-columns: 1fr; } }
-    .do-box, .dont-box {
-      border-radius: 18px; padding: 22px;
-      box-shadow: var(--shadow-sm);
+    @media(max-width:520px) { .rules { grid-template-columns: 1fr; } }
+    .do-box {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 22px;
     }
-    .do-box { background: #f0fdf4; border: 1.5px solid #86efac; }
-    .dont-box { background: #fff5f5; border: 1.5px solid #fca5a5; }
-    .do-box h4 { color: var(--green); font-size: 13.5px; font-weight: 700; margin-bottom: 14px; }
-    .dont-box h4 { color: var(--red); font-size: 13.5px; font-weight: 700; margin-bottom: 14px; }
+    .dont-box {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 22px;
+    }
+    .do-box h4 { font-size: 13px; font-weight: 700; margin-bottom: 14px; color: var(--green); }
+    .dont-box h4 { font-size: 13px; font-weight: 700; margin-bottom: 14px; color: var(--red); }
     .do-box ul, .dont-box ul { padding-left: 16px; }
-    .do-box li { color: #15803d; font-size: 13px; margin-bottom: 7px; line-height: 1.5; }
-    .dont-box li { color: #b91c1c; font-size: 13px; margin-bottom: 7px; line-height: 1.5; }
+    .do-box li { font-size: 13px; color: var(--ink2); margin-bottom: 7px; line-height: 1.55; }
+    .dont-box li { font-size: 13px; color: var(--ink2); margin-bottom: 7px; line-height: 1.55; }
 
     .note {
       background: #fffbeb; border: 1px solid #fcd34d;
-      border-radius: 12px; padding: 13px 16px;
+      border-radius: 10px; padding: 12px 16px;
       font-size: 13px; color: #92400e; margin-top: 14px;
     }
     .note strong { color: #78350f; }
 
     /* ── FOOTER ── */
     footer {
-      background: var(--ink); color: rgba(255,255,255,.35);
-      text-align: center; padding: 32px 20px;
-      font-size: 12px; line-height: 2;
+      border-top: 1px solid var(--border);
+      padding: 36px 24px;
+      text-align: center;
+      font-size: 12px; color: var(--light);
+      line-height: 2;
     }
-    footer strong { color: rgba(255,255,255,.7); }
+    footer strong { color: var(--muted); }
 
     @media(max-width:600px) {
-      .hero { padding: 48px 20px 56px; }
-      .hero-stats { flex-direction: column; border-radius: 14px; }
-      .hero-stat { border-right: none; border-bottom: 1px solid rgba(255,255,255,.08); }
-      .hero-stat:last-child { border-bottom: none; }
-      section { padding: 40px 0; }
-      .usp { flex-direction: column; gap: 12px; padding: 22px 20px; }
-      .sale { padding: 28px 20px; }
+      .hero { padding: 48px 20px 48px; }
+      .hero-dates { flex-direction: column; border-radius: 12px; }
+      .hero-date { border-right: none; border-bottom: 1px solid var(--border); }
+      .hero-date:last-child { border-bottom: none; }
+      section { padding: 44px 0; }
+      .usp-box { padding: 22px 20px; }
+      .sale-top { padding: 24px 20px 20px; }
+      .sale-bottom { padding: 20px; }
     }
   </style>
 </head>
@@ -390,45 +354,40 @@
 
 <!-- 고정 마감 알림 -->
 <div class="topbar">
-  <div class="topbar-dot"></div>
-  업로드 마감 : 6월 1일 자정
-  <span class="topbar-sub">· 올리브영 현장 방문은 5월 31일 당일 필수</span>
+  ⏰ 업로드 마감 6월 1일 자정
+  <span>· 올리브영 현장 방문은 5월 31일 당일 필수</span>
 </div>
 
-<!-- 섹션 네비게이션 -->
+<!-- 네비게이션 -->
 <nav class="nav">
   <div class="nav-inner">
-    <a href="#schedule">📅 일정</a>
-    <a href="#video">🎬 영상 구성</a>
-    <a href="#product">✨ 제품 정보</a>
-    <a href="#sale">🏷️ 세일 혜택</a>
-    <a href="#copy">💬 추천 카피</a>
-    <a href="#rules">📋 주의사항</a>
+    <a href="#schedule">일정</a>
+    <a href="#video">영상 구성</a>
+    <a href="#product">제품 정보</a>
+    <a href="#sale">세일 혜택</a>
+    <a href="#copy">추천 카피</a>
+    <a href="#rules">주의사항</a>
   </div>
 </nav>
 
 <!-- 히어로 -->
-<header class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-inner">
-    <div class="hero-pill">
-      <div class="hero-pill-dot"></div>
-      FORHZ × OLIVE YOUNG · 인플루언서 캠페인 가이드
-    </div>
-    <h1 class="hero-title">쿼드쎄라 미니튠<br><em>올리브영 세일 캠페인</em></h1>
+<header>
+  <div class="hero">
+    <div class="hero-kicker">FORHZ × OLIVE YOUNG · 인플루언서 캠페인 가이드</div>
+    <h1>쿼드쎄라 미니튠<br>올리브영 세일 캠페인</h1>
     <p class="hero-desc">이 가이드 하나로 영상 제작부터 업로드까지 끝낼 수 있어요.</p>
-    <div class="hero-stats">
-      <div class="hero-stat">
-        <div class="hero-stat-val">5/30</div>
-        <div class="hero-stat-label">사전 제작 마감</div>
+    <div class="hero-dates">
+      <div class="hero-date">
+        <div class="hero-date-label">사전 제작 마감</div>
+        <div class="hero-date-val">5 / 30</div>
       </div>
-      <div class="hero-stat">
-        <div class="hero-stat-val g">5/31</div>
-        <div class="hero-stat-label">올리브영 현장 방문</div>
+      <div class="hero-date">
+        <div class="hero-date-label">올리브영 현장 방문</div>
+        <div class="hero-date-val green">5 / 31</div>
       </div>
-      <div class="hero-stat">
-        <div class="hero-stat-val r">6/1</div>
-        <div class="hero-stat-label">업로드 최종 마감</div>
+      <div class="hero-date">
+        <div class="hero-date-label">업로드 최종 마감</div>
+        <div class="hero-date-val red">6 / 1</div>
       </div>
     </div>
   </div>
@@ -437,32 +396,31 @@
 <!-- 1. 일정 -->
 <section id="schedule">
   <div class="wrap">
-    <div class="eyebrow">STEP BY STEP</div>
+    <div class="eyebrow">Schedule</div>
     <h2 class="sec-title">언제 뭘 해야 하나요?</h2>
-
     <div class="steps">
       <div class="step">
-        <div class="step-badge b">📦</div>
+        <div class="step-left"><div class="step-num">1</div></div>
         <div>
-          <div class="step-when blue">STEP 1 · 지금 ~ 5월 30일</div>
+          <div class="step-when">지금 ~ 5월 30일</div>
           <div class="step-name">리뷰 영상 미리 만들어두기</div>
-          <div class="step-desc">포헤르츠로부터 받은 미니튠으로 리뷰 영상을 <strong>완성본에 가깝게</strong> 편집해두세요. 5/31 현장 영상을 앞에 붙일 예정이니, <strong>"이미 써봤어요"</strong> 흐름으로 만들면 돼요.</div>
+          <div class="step-desc">포헤르츠로부터 받은 미니튠으로 리뷰 영상을 <strong>완성본에 가깝게</strong> 편집해두세요. 5/31 현장 영상을 앞에 붙일 예정이니 <strong>"이미 써봤어요"</strong> 흐름으로 만들면 돼요.</div>
         </div>
       </div>
       <div class="step">
-        <div class="step-badge g">🏪</div>
+        <div class="step-left"><div class="step-num">2</div></div>
         <div>
-          <div class="step-when red">STEP 2 · 5월 31일 당일 필수</div>
-          <div class="step-name">집 근처 올리브영 가서 짧게 촬영</div>
+          <div class="step-when red">5월 31일 당일 필수</div>
+          <div class="step-name">집 근처 올리브영 방문 & 촬영</div>
           <div class="step-desc">매대에서 미니튠 집어들고, 가격 태그 확인하고, 계산하는 장면을 <strong>15~30초</strong>로 찍어요. 촬영 후 바로 편집해서 리뷰 영상 앞에 이어 붙이면 완성!</div>
         </div>
       </div>
       <div class="step">
-        <div class="step-badge r">🚀</div>
+        <div class="step-left"><div class="step-num outline">3</div></div>
         <div>
-          <div class="step-when red">STEP 3 · 5월 31일 당일 or 6월 1일 자정 전</div>
+          <div class="step-when red">5월 31일 당일 or 6월 1일 자정 전</div>
           <div class="step-name">릴스 업로드</div>
-          <div class="step-desc"><strong>최종 영상 = 올리브영 현장 씬 + 리뷰 릴스</strong>를 이어 붙인 형태. 캡션에 세일 정보와 해시태그를 넣어주세요.</div>
+          <div class="step-desc"><strong>최종 영상 = 올리브영 현장 씬 + 리뷰 릴스</strong>를 이어 붙인 형태. 캡션에 세일 정보와 해시태그를 꼭 넣어주세요.</div>
         </div>
       </div>
     </div>
@@ -472,17 +430,17 @@
 <!-- 2. 영상 구성 -->
 <section id="video">
   <div class="wrap">
-    <div class="eyebrow">CONTENT GUIDE</div>
+    <div class="eyebrow">Content Guide</div>
     <h2 class="sec-title">영상 이렇게 만드세요</h2>
 
-    <div class="video-grid">
+    <div class="video-cols">
       <div class="vcol">
-        <div class="vcol-tag g">PART A · 5/31 현장</div>
+        <div class="vcol-tag">Part A · 5/31 현장</div>
         <div class="vcol-name">올리브영 구매 씬</div>
         <div class="vcol-body">매장 입장 → 미니튠 발견 → 가격 확인 → 계산<br><br>"69만 원짜리가 20만 원대?!" 자막 추천</div>
       </div>
       <div class="vcol">
-        <div class="vcol-tag b">PART B · 사전 제작</div>
+        <div class="vcol-tag">Part B · 사전 제작</div>
         <div class="vcol-name">제품 리뷰 릴스</div>
         <div class="vcol-body">훅 → 스펙 소개 → 실사용 → CTA<br><br>비포/애프터, 젤 흡수 장면 넣으면 좋아요</div>
       </div>
@@ -490,30 +448,30 @@
 
     <div class="flow">
       <div class="flow-row">
-        <div class="flow-spine"><div class="flow-circle"></div><div class="flow-line"></div></div>
-        <div class="flow-card">
+        <div class="flow-spine"><div class="flow-dot"></div><div class="flow-line"></div></div>
+        <div class="flow-body">
           <div class="flow-label">훅 오프닝</div>
           <div class="flow-text">임팩트 있는 카피로 시작. 예) <strong>"피부과 LDM이랑 주파수가 똑같다고?"</strong></div>
         </div>
       </div>
       <div class="flow-row">
-        <div class="flow-spine"><div class="flow-circle"></div><div class="flow-line"></div></div>
-        <div class="flow-card">
+        <div class="flow-spine"><div class="flow-dot"></div><div class="flow-line"></div></div>
+        <div class="flow-body">
           <div class="flow-label">제품 소개</div>
-          <div class="flow-text"><strong>3중 주파수(3/10/17MHz)</strong> 강조. 타사 브랜드 실명 절대 금지 — <span class="dim">'일반 LDM 디바이스'</span>로 표현.</div>
+          <div class="flow-text"><strong>3중 주파수(3/10/17MHz)</strong> 강조. 타사 실명 금지 — <span class="dim">'일반 LDM 디바이스'</span>로 표현.</div>
         </div>
       </div>
       <div class="flow-row">
-        <div class="flow-spine"><div class="flow-circle"></div><div class="flow-line"></div></div>
-        <div class="flow-card">
+        <div class="flow-spine"><div class="flow-dot"></div><div class="flow-line"></div></div>
+        <div class="flow-body">
           <div class="flow-label">실사용 장면</div>
           <div class="flow-text">포헤르츠 젤과 함께 쓰는 장면, 피부결 변화 비포/애프터 포함 권장.</div>
         </div>
       </div>
       <div class="flow-row">
-        <div class="flow-spine"><div class="flow-circle" style="background:#15803d"></div></div>
-        <div class="flow-card">
-          <div class="flow-label" style="color:#15803d">마무리 CTA</div>
+        <div class="flow-spine"><div class="flow-dot green"></div></div>
+        <div class="flow-body">
+          <div class="flow-label green">마무리 CTA</div>
           <div class="flow-text">올리브영 세일(5/31~6/6), <strong>295,850원</strong>, 포토리뷰 사은품 <strong>81,000원 상당</strong> 안내.</div>
         </div>
       </div>
@@ -524,122 +482,116 @@
 <!-- 3. 제품 정보 -->
 <section id="product">
   <div class="wrap">
-    <div class="eyebrow">PRODUCT</div>
+    <div class="eyebrow">Product</div>
     <h2 class="sec-title">제품 핵심만 알고 가세요</h2>
 
-    <div class="usp">
-      <div class="usp-emo">🏥</div>
-      <div class="usp-inner">
-        <div class="usp-kicker">가장 강력한 포인트</div>
-        <div class="usp-headline">피부과 물방울초음파(LDM)와 <em>동일한 3/10MHz 주파수</em> 사용</div>
-        <div class="usp-hint">"피부과 안 가도 집에서 피부과급 관리"로 어필하세요</div>
-      </div>
+    <div class="usp-box">
+      <div class="usp-label">가장 강력한 포인트</div>
+      <div class="usp-title">피부과 물방울초음파(LDM)와 <em>동일한 3/10MHz 주파수</em> 사용</div>
+      <div class="usp-hint">"피부과 안 가도 집에서 피부과급 관리"로 어필하세요</div>
     </div>
 
     <div class="modes">
-      <div class="mode m1">
-        <div class="mode-n">MODE 1</div>
+      <div class="mode">
+        <div class="mode-num">MODE 1</div>
         <div class="mode-name">진정·트러블</div>
         <div class="mode-freq">3 · 10MHz</div>
         <div class="mode-desc">보습 / 유수분 / 트러블 진정</div>
       </div>
-      <div class="mode m2">
-        <div class="mode-n">MODE 2</div>
+      <div class="mode">
+        <div class="mode-num">MODE 2</div>
         <div class="mode-name">톤업·광채</div>
         <div class="mode-freq">10 · 17MHz</div>
         <div class="mode-desc">수분 충전 / 광채 / 톤업</div>
       </div>
-      <div class="mode m3">
-        <div class="mode-n">MODE 3</div>
+      <div class="mode">
+        <div class="mode-num">MODE 3</div>
         <div class="mode-name">모공·탄력</div>
         <div class="mode-freq">3 · 10 · 17MHz</div>
         <div class="mode-desc">콜라겐 / 탄력 / 모공 케어</div>
       </div>
     </div>
 
-    <div class="spec-wrap">
-      <div class="spec">⚖️ 137g 초경량</div>
-      <div class="spec">🎨 화이트 / 핑크 / 실버</div>
-      <div class="spec">🔌 USB-C 충전</div>
-      <div class="spec">🦷 목·전신 사용 가능</div>
-      <div class="spec">🛡️ 무상 1년 AS</div>
+    <div class="specs">
+      <div class="spec-tag">137g 초경량</div>
+      <div class="spec-tag">화이트 / 핑크 / 실버</div>
+      <div class="spec-tag">USB-C 충전</div>
+      <div class="spec-tag">목·전신 사용 가능</div>
+      <div class="spec-tag">무상 1년 AS</div>
     </div>
   </div>
 </section>
 
-<!-- 4. 세일 정보 -->
+<!-- 4. 세일 혜택 -->
 <section id="sale">
   <div class="wrap">
-    <div class="eyebrow">OLIVE YOUNG SALE</div>
+    <div class="eyebrow">Olive Young Sale</div>
     <h2 class="sec-title">영상에 꼭 넣어야 할 혜택</h2>
 
-    <div class="sale">
-      <div class="sale-inner">
-        <div class="sale-badge">OLIVE YOUNG</div>
-        <div class="sale-period">🗓️ 2026년 5월 31일(토) ~ 6월 6일(토)</div>
+    <div class="sale-box">
+      <div class="sale-top">
+        <div class="sale-period">2026년 5월 31일(토) ~ 6월 6일(토)</div>
         <div class="sale-price-row">
           <span class="sale-orig">690,000원</span>
-          <span>→</span>
           <span class="sale-main">295,850원</span>
           <span class="sale-disc">57% 할인</span>
         </div>
-        <div class="gift">
-          <div class="gift-title">🎁 포토리뷰 작성 시 사은품 100% 전원 증정</div>
-          <div class="gift-item"><span>포헤르츠 마스크젤 80g × 2개</span><span>36,000원</span></div>
-          <div class="gift-item"><span>미니튠 전용 크래들</span><span>45,000원</span></div>
-          <div class="gift-total"><span>합계</span><span>81,000원 상당 🎉</span></div>
-        </div>
+      </div>
+      <div class="sale-bottom">
+        <div class="gift-title">🎁 포토리뷰 작성 시 사은품 100% 전원 증정</div>
+        <div class="gift-row"><span>포헤르츠 마스크젤 80g × 2개</span><span>36,000원</span></div>
+        <div class="gift-row"><span>미니튠 전용 크래들</span><span>45,000원</span></div>
+        <div class="gift-total"><span>합계</span><span>81,000원 상당</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- 5. 추천 카피 -->
+<!-- 5. 추천 카피 & 해시태그 -->
 <section id="copy">
   <div class="wrap">
-    <div class="eyebrow">COPY & HASHTAG</div>
+    <div class="eyebrow">Copy & Hashtag</div>
     <h2 class="sec-title">바로 쓸 수 있는 카피</h2>
 
     <div class="copy-list">
       <div class="copy-item" onclick="doCopy(this, '피부과 물방울초음파랑 주파수가 똑같다고? 집에서 매일 해도 되는 거잖아.')">
-        <div class="copy-kicker">🏥 피부과 연계형</div>
+        <div class="copy-kicker">피부과 연계형</div>
         피부과 물방울초음파랑 주파수가 똑같다고? 집에서 매일 해도 되는 거잖아.
         <div class="copy-btn">복사</div>
       </div>
       <div class="copy-item" onclick="doCopy(this, '20만 원대 LDM, 다 똑같을까요? 주파수 구성까지 꼭 비교해 보세요.')">
-        <div class="copy-kicker">⚡ 스펙 비교형</div>
+        <div class="copy-kicker">스펙 비교형</div>
         20만 원대 LDM, 다 똑같을까요? 주파수 구성까지 꼭 비교해 보세요.
         <div class="copy-btn">복사</div>
       </div>
       <div class="copy-item" onclick="doCopy(this, '처음 쓰는 LDM 홈케어라면 원조 브랜드 쿼드쎄라로.')">
-        <div class="copy-kicker">💫 입문 강조형</div>
+        <div class="copy-kicker">입문 강조형</div>
         처음 쓰는 LDM 홈케어라면 원조 브랜드 쿼드쎄라로.
         <div class="copy-btn">복사</div>
       </div>
       <div class="copy-item" onclick="doCopy(this, '요즘 많아진 물방울 디바이스, 기준은 결국 쿼드쎄라입니다.')">
-        <div class="copy-kicker">🏆 원조 강조형</div>
+        <div class="copy-kicker">원조 강조형</div>
         요즘 많아진 물방울 디바이스, 기준은 결국 쿼드쎄라입니다.
         <div class="copy-btn">복사</div>
       </div>
       <div class="copy-item" onclick="doCopy(this, '얼굴만? 아니, 목·쇄골·팔꿈치까지. 미니튠은 전신 루틴템.')">
-        <div class="copy-kicker">🌿 전신 루틴형</div>
+        <div class="copy-kicker">전신 루틴형</div>
         얼굴만? 아니, 목·쇄골·팔꿈치까지. 미니튠은 전신 루틴템.
         <div class="copy-btn">복사</div>
       </div>
     </div>
 
     <div class="tags">
-      <div class="tag p">#쿼드쎄라</div>
-      <div class="tag p">#미니튠</div>
-      <div class="tag p">#쿼드쎄라미니튠</div>
-      <div class="tag p">#올리브영세일</div>
-      <div class="tag p">#포헤르츠</div>
-      <div class="tag g">#LDM홈케어</div>
-      <div class="tag g">#물방울초음파</div>
-      <div class="tag g">#피부과LDM</div>
-      <div class="tag g">#홈케어디바이스</div>
-      <div class="tag g">#가심비뷰티</div>
-      <div class="tag g">#전신홈케어</div>
+      <div class="tag dark">#쿼드쎄라</div>
+      <div class="tag dark">#미니튠</div>
+      <div class="tag dark">#올리브영세일</div>
+      <div class="tag dark">#포헤르츠</div>
+      <div class="tag light">#LDM홈케어</div>
+      <div class="tag light">#물방울초음파</div>
+      <div class="tag light">#피부과LDM</div>
+      <div class="tag light">#홈케어디바이스</div>
+      <div class="tag light">#가심비뷰티</div>
+      <div class="tag light">#전신홈케어</div>
     </div>
 
     <div class="note"><strong>#광고</strong> 또는 <strong>#협찬</strong> 표기 필수 (공정거래위원회 지침)</div>
@@ -649,24 +601,21 @@
 <!-- 6. 주의사항 -->
 <section id="rules">
   <div class="wrap">
-    <div class="eyebrow">GUIDELINES</div>
+    <div class="eyebrow">Guidelines</div>
     <h2 class="sec-title">꼭 지켜주세요</h2>
 
-    <!-- 공동작업자 태그 필수 -->
-    <div style="background:var(--ink); border-radius:18px; padding:22px 24px; margin-bottom:16px; display:flex; align-items:flex-start; gap:16px; box-shadow:var(--shadow-md);">
-      <div style="font-size:26px; flex-shrink:0; margin-top:2px;">🔗</div>
-      <div>
-        <div style="font-size:11px; font-weight:700; letter-spacing:.1em; color:#818cf8; margin-bottom:6px;">필수 · 공동작업자 태그</div>
-        <div style="font-size:13.5px; color:rgba(255,255,255,.6); margin-bottom:12px;">캡션 또는 협업 태그에 아래 계정을 <strong style="color:#f87171;">반드시</strong> 포함해주세요.</div>
-        <div style="display:flex; flex-wrap:wrap; gap:8px;">
-          <div style="background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.15); border-radius:999px; padding:7px 16px; font-size:14px; font-weight:700; color:#fff; display:flex; align-items:center; gap:6px;">
-            <span style="width:7px;height:7px;border-radius:50%;background:#f87171;flex-shrink:0;"></span>
-            @quadthera.official
-          </div>
-          <div style="background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.15); border-radius:999px; padding:7px 16px; font-size:14px; font-weight:700; color:#fff; display:flex; align-items:center; gap:6px;">
-            <span style="width:7px;height:7px;border-radius:50%;background:#f87171;flex-shrink:0;"></span>
-            @quadthera.official_jp
-          </div>
+    <!-- 필수 공동작업자 태그 -->
+    <div class="collab-box">
+      <div class="collab-label">필수 · 공동작업자 태그</div>
+      <div class="collab-desc">캡션 또는 공동작업자 태그에 아래 계정을 반드시 포함해주세요.</div>
+      <div class="collab-accounts">
+        <div class="collab-account">
+          <div class="collab-dot"></div>
+          @quadthera.official
+        </div>
+        <div class="collab-account">
+          <div class="collab-dot"></div>
+          @quadthera.official_jp
         </div>
       </div>
     </div>
@@ -702,7 +651,7 @@
 <footer>
   <strong>ECO DM LAB Co., Ltd.</strong><br>
   T. 02.6415.2106 · contact@ecodmlab.com<br>
-  <span style="font-size:11px;">※ 본 가이드는 에코디엠랩 내부 기밀 자료입니다.</span>
+  ※ 본 가이드는 에코디엠랩 내부 기밀 자료입니다.
 </footer>
 
 <script>
