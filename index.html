@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>미니튠 × 올리브영 캠페인 가이드</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+
+    :root {
+      --primary: #1a1a2e;
+      --accent: #4f6ef7;
+      --olive: #2d7a4f;
+      --red: #ef4444;
+      --bg: #f4f4f8;
+      --card: #ffffff;
+      --text: #1e1e2e;
+      --muted: #6b7280;
+      --border: #e2e4ea;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Noto Sans KR', sans-serif; background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.7; }
+
+    /* ── DEADLINE BAR (항상 상단 고정) ── */
+    .deadline-bar {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--red);
+      color: #fff;
+      text-align: center;
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .02em;
+    }
+    .deadline-bar span { opacity: .85; font-weight: 400; margin-left: 8px; }
+
+    /* ── NAV ── */
+    .nav {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      overflow-x: auto;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .nav::-webkit-scrollbar { display: none; }
+    .nav-inner { display: inline-flex; gap: 0; padding: 0 16px; }
+    .nav a {
+      display: inline-block;
+      padding: 14px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+      transition: color .15s, border-color .15s;
+    }
+    .nav a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, #0f0c29 0%, #302b63 55%, #24243e 100%);
+      color: #fff;
+      padding: 52px 24px 56px;
+      text-align: center;
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 999px;
+      padding: 5px 16px;
+      font-size: 12px;
+      letter-spacing: .04em;
+      margin-bottom: 18px;
+    }
+    .hero h1 {
+      font-size: clamp(24px, 5vw, 42px);
+      font-weight: 900;
+      line-height: 1.25;
+      margin-bottom: 10px;
+    }
+    .hero h1 em { color: #a5b4fc; font-style: normal; }
+    .hero-sub { font-size: 14px; color: rgba(255,255,255,.65); margin-bottom: 28px; }
+
+    /* ── QUICK SUMMARY ── */
+    .summary {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      padding: 0;
+    }
+    .summary-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+    @media(max-width:520px) { .summary-inner { grid-template-columns: 1fr; } }
+    .summary-item {
+      padding: 20px 24px;
+      border-right: 1px solid var(--border);
+    }
+    .summary-item:last-child { border-right: none; }
+    @media(max-width:520px) {
+      .summary-item { border-right: none; border-bottom: 1px solid var(--border); }
+      .summary-item:last-child { border-bottom: none; }
+    }
+    .summary-label { font-size: 11px; font-weight: 700; letter-spacing: .1em; color: var(--muted); margin-bottom: 4px; }
+    .summary-value { font-size: 16px; font-weight: 900; color: var(--text); }
+    .summary-value.red { color: var(--red); }
+    .summary-value.olive { color: var(--olive); }
+
+    /* ── LAYOUT ── */
+    .container { max-width: 800px; margin: 0 auto; padding: 0 20px; }
+    section { padding: 44px 0; }
+    section + section { border-top: 1px solid var(--border); }
+
+    .section-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .12em; color: var(--accent); margin-bottom: 6px; }
+    .section-title { font-size: clamp(20px, 3.5vw, 26px); font-weight: 900; margin-bottom: 24px; }
+
+    /* ── STEP CARDS ── */
+    .steps { display: flex; flex-direction: column; gap: 12px; }
+    .step {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px 22px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .step-icon {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      font-size: 20px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-icon.blue { background: #eff6ff; }
+    .step-icon.green { background: #f0fdf4; }
+    .step-icon.red { background: #fff5f5; }
+    .step-meta { font-size: 12px; font-weight: 700; margin-bottom: 3px; }
+    .step-meta.red { color: var(--red); }
+    .step-meta.blue { color: var(--accent); }
+    .step-title { font-size: 15px; font-weight: 700; margin-bottom: 5px; }
+    .step-desc { font-size: 13px; color: var(--muted); line-height: 1.65; }
+    .step-desc b { color: var(--text); font-weight: 700; }
+
+    /* ── VIDEO FLOW ── */
+    .video-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+    @media(max-width:520px) { .video-cols { grid-template-columns: 1fr; } }
+    .vcol {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+    }
+    .vcol-badge {
+      display: inline-block;
+      border-radius: 8px;
+      padding: 3px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .vcol-badge.green { background: #dcfce7; color: #15803d; }
+    .vcol-badge.blue { background: #dbeafe; color: #1d4ed8; }
+    .vcol-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+    .vcol-body { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+    .flow { display: flex; flex-direction: column; gap: 2px; }
+    .flow-row {
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+    }
+    .flow-left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 32px;
+      flex-shrink: 0;
+    }
+    .flow-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+      margin-top: 18px;
+    }
+    .flow-line { flex: 1; width: 2px; background: var(--border); }
+    .flow-row:last-child .flow-line { display: none; }
+    .flow-content {
+      flex: 1;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin: 4px 0;
+    }
+    .flow-tag { font-size: 11px; font-weight: 700; color: var(--accent); margin-bottom: 3px; }
+    .flow-text { font-size: 13px; color: var(--text); line-height: 1.55; }
+    .flow-text .muted { color: var(--muted); }
+
+    /* ── PRODUCT ── */
+    .usp-banner {
+      background: linear-gradient(135deg, #0f172a, #1e3a5f);
+      border-radius: 16px;
+      padding: 22px 24px;
+      color: #fff;
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .usp-icon { font-size: 32px; flex-shrink: 0; }
+    .usp-label { font-size: 11px; font-weight: 700; letter-spacing: .1em; color: #93c5fd; margin-bottom: 4px; }
+    .usp-text { font-size: 15px; font-weight: 700; line-height: 1.45; }
+    .usp-text em { color: #60a5fa; font-style: normal; }
+    .usp-sub { font-size: 12px; color: rgba(255,255,255,.6); margin-top: 4px; }
+
+    .modes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
+    @media(max-width:520px) { .modes { grid-template-columns: 1fr; } }
+    .mode { border-radius: 14px; padding: 18px 16px; text-align: center; }
+    .mode.m1 { background: #eff6ff; border: 1.5px solid #bfdbfe; }
+    .mode.m2 { background: #fdf4ff; border: 1.5px solid #e9d5ff; }
+    .mode.m3 { background: #f0fdf4; border: 1.5px solid #bbf7d0; }
+    .mode-num { font-size: 11px; font-weight: 700; margin-bottom: 6px; }
+    .m1 .mode-num { color: #1d4ed8; }
+    .m2 .mode-num { color: #7c3aed; }
+    .m3 .mode-num { color: #15803d; }
+    .mode-name { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+    .mode-freq { font-size: 12px; font-weight: 700; color: var(--accent); margin-bottom: 6px; }
+    .mode-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 7px 14px;
+      font-size: 13px;
+      line-height: 1;
+    }
+
+    /* ── SALE ── */
+    .sale {
+      background: linear-gradient(135deg, #14532d, #166534, #15803d);
+      border-radius: 20px;
+      padding: 32px 28px;
+      color: #fff;
+      text-align: center;
+    }
+    .sale-badge {
+      display: inline-block;
+      background: rgba(255,255,255,.18);
+      border-radius: 999px;
+      padding: 5px 18px;
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: .1em;
+      margin-bottom: 14px;
+    }
+    .sale-period { font-size: 13px; opacity: .8; margin-bottom: 18px; }
+    .sale-prices {
+      display: flex; justify-content: center; align-items: center;
+      gap: 14px; flex-wrap: wrap; margin-bottom: 22px;
+    }
+    .price-orig { font-size: 15px; text-decoration: line-through; opacity: .5; }
+    .price-main { font-size: 30px; font-weight: 900; }
+    .price-disc { background: #ef4444; border-radius: 999px; padding: 4px 12px; font-size: 12px; font-weight: 700; }
+    .gift {
+      background: rgba(255,255,255,.13);
+      border-radius: 14px;
+      padding: 18px 20px;
+      text-align: left;
+    }
+    .gift-head { font-size: 13px; font-weight: 700; text-align: center; margin-bottom: 12px; }
+    .gift-row { display: flex; justify-content: space-between; font-size: 13px; padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,.12); }
+    .gift-row:last-of-type { border: none; }
+    .gift-total {
+      display: flex; justify-content: space-between;
+      font-weight: 700; font-size: 14px;
+      margin-top: 10px; padding-top: 10px;
+      border-top: 1px solid rgba(255,255,255,.25);
+    }
+
+    /* ── COPY ── */
+    .copy-items { display: flex; flex-direction: column; gap: 8px; }
+    .copy-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-size: 13px;
+      line-height: 1.6;
+      cursor: pointer;
+      transition: border-color .15s, background .15s;
+      position: relative;
+    }
+    .copy-item:hover { border-color: var(--accent); background: #f5f7ff; }
+    .copy-item::after {
+      content: '탭하여 복사';
+      position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+      font-size: 11px; color: var(--muted);
+    }
+    .copy-item.copied { border-color: #22c55e; background: #f0fdf4; }
+    .copy-item.copied::after { content: '✓ 복사됨'; color: #15803d; }
+    .copy-prefix { font-size: 11px; font-weight: 700; color: var(--accent); margin-bottom: 3px; }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 16px; }
+    .tag {
+      border-radius: 999px;
+      padding: 6px 14px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: opacity .15s;
+      user-select: all;
+    }
+    .tag:hover { opacity: .75; }
+    .tag.primary { background: #eff6ff; border: 1px solid #bfdbfe; color: #1d4ed8; }
+    .tag.gray { background: var(--bg); border: 1px solid var(--border); color: var(--muted); }
+
+    /* ── DO/DON'T ── */
+    .do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media(max-width:520px) { .do-dont { grid-template-columns: 1fr; } }
+    .do {
+      background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 16px; padding: 20px;
+    }
+    .dont {
+      background: #fff5f5; border: 1px solid #fecaca; border-radius: 16px; padding: 20px;
+    }
+    .do h4 { color: #15803d; font-size: 14px; font-weight: 700; margin-bottom: 12px; }
+    .dont h4 { color: #dc2626; font-size: 14px; font-weight: 700; margin-bottom: 12px; }
+    .do ul, .dont ul { padding-left: 16px; }
+    .do li { font-size: 13px; color: #166534; margin-bottom: 6px; line-height: 1.5; }
+    .dont li { font-size: 13px; color: #991b1b; margin-bottom: 6px; line-height: 1.5; }
+
+    .note {
+      background: #fffbeb; border: 1px solid #fde68a;
+      border-radius: 10px; padding: 12px 16px;
+      font-size: 13px; color: #92400e; margin-top: 14px;
+    }
+    .note b { color: #78350f; }
+
+    footer {
+      background: var(--primary); color: rgba(255,255,255,.45);
+      text-align: center; padding: 28px 20px; font-size: 12px; line-height: 1.9;
+    }
+    footer b { color: rgba(255,255,255,.8); }
+  </style>
+</head>
+<body>
+
+<!-- 항상 보이는 마감 알림 -->
+<div class="deadline-bar">
+  ⏰ 업로드 마감 : 6월 1일 자정까지
+  <span>올리브영 현장 촬영은 반드시 5월 31일 당일</span>
+</div>
+
+<!-- 섹션 이동 네비게이션 -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#schedule">📅 일정</a>
+    <a href="#video">🎬 영상 구성</a>
+    <a href="#product">✨ 제품 정보</a>
+    <a href="#sale">🏷️ 세일 혜택</a>
+    <a href="#copy">💬 추천 카피</a>
+    <a href="#rules">📋 주의사항</a>
+  </div>
+</nav>
+
+<!-- 히어로 -->
+<div class="hero">
+  <div class="hero-eyebrow">FORHZ × OLIVE YOUNG · 인플루언서 캠페인 가이드</div>
+  <h1>쿼드쎄라 미니튠<br><em>올리브영 세일 캠페인</em></h1>
+  <p class="hero-sub">이 가이드 하나로 영상 제작부터 업로드까지 끝낼 수 있어요.</p>
+</div>
+
+<!-- 한눈에 보기 -->
+<div class="summary">
+  <div class="summary-inner">
+    <div class="summary-item">
+      <div class="summary-label">사전 제작 마감</div>
+      <div class="summary-value">5월 30일까지</div>
+    </div>
+    <div class="summary-item">
+      <div class="summary-label">올리브영 현장 방문</div>
+      <div class="summary-value olive">5월 31일 당일</div>
+    </div>
+    <div class="summary-item">
+      <div class="summary-label">업로드 마감</div>
+      <div class="summary-value red">6월 1일 자정</div>
+    </div>
+  </div>
+</div>
+
+<!-- 1. 일정 -->
+<section id="schedule">
+  <div class="container">
+    <div class="section-eyebrow">STEP BY STEP</div>
+    <h2 class="section-title">언제 뭘 해야 하나요?</h2>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-icon blue">📦</div>
+        <div>
+          <div class="step-meta blue">STEP 1 · 지금 ~ 5월 30일</div>
+          <div class="step-title">리뷰 영상 미리 만들어두기</div>
+          <div class="step-desc">
+            포헤르츠로부터 받은 미니튠으로 리뷰 영상을 <b>완성본에 가깝게</b> 편집해두세요.<br>
+            5/31 현장 영상을 앞에 붙일 예정이니, <b>"이미 써봤어요"</b> 흐름으로 만들면 돼요.
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-icon green">🏪</div>
+        <div>
+          <div class="step-meta red">STEP 2 · 5월 31일 당일 필수</div>
+          <div class="step-title">집 근처 올리브영 가서 짧게 촬영</div>
+          <div class="step-desc">
+            매대에서 미니튠 집어들고, 가격 태그 확인하고, 계산하는 장면을 <b>15~30초</b>로 찍어요.<br>
+            촬영 후 바로 편집해서 리뷰 영상 앞에 이어 붙이면 완성!
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-icon red">🚀</div>
+        <div>
+          <div class="step-meta red">STEP 3 · 5월 31일 당일 or 6월 1일 자정 전</div>
+          <div class="step-title">릴스 업로드</div>
+          <div class="step-desc">
+            <b>최종 영상 = 올리브영 현장 씬 + 리뷰 릴스</b>를 이어 붙인 형태.<br>
+            캡션에 세일 정보와 아래 해시태그를 넣어주세요.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. 영상 구성 -->
+<section id="video">
+  <div class="container">
+    <div class="section-eyebrow">CONTENT GUIDE</div>
+    <h2 class="section-title">영상 이렇게 만드세요</h2>
+
+    <div class="video-cols">
+      <div class="vcol">
+        <div class="vcol-badge green">PART A · 5/31 현장</div>
+        <div class="vcol-title">올리브영 구매 씬</div>
+        <div class="vcol-body">매장 입장 → 미니튠 발견 → 가격 확인 → 계산<br><br>
+        "69만 원짜리가 20만 원대?!" 자막 추천</div>
+      </div>
+      <div class="vcol">
+        <div class="vcol-badge blue">PART B · 사전 제작</div>
+        <div class="vcol-title">제품 리뷰 릴스</div>
+        <div class="vcol-body">훅 → 스펙 소개 → 실사용 → CTA<br><br>
+        비포/애프터, 젤 흡수 장면 넣으면 좋아요</div>
+      </div>
+    </div>
+
+    <div class="flow">
+      <div class="flow-row">
+        <div class="flow-left"><div class="flow-dot"></div><div class="flow-line"></div></div>
+        <div class="flow-content">
+          <div class="flow-tag">훅 오프닝</div>
+          <div class="flow-text">임팩트 있는 카피로 시작. 예) <b>"피부과 LDM이랑 주파수가 똑같다고?"</b></div>
+        </div>
+      </div>
+      <div class="flow-row">
+        <div class="flow-left"><div class="flow-dot"></div><div class="flow-line"></div></div>
+        <div class="flow-content">
+          <div class="flow-tag">제품 소개</div>
+          <div class="flow-text"><b>3중 주파수(3/10/17MHz)</b> 강조. 타사 브랜드 실명은 절대 언급 금지 — <span class="muted">'일반 LDM 디바이스'</span>로 표현하세요.</div>
+        </div>
+      </div>
+      <div class="flow-row">
+        <div class="flow-left"><div class="flow-dot"></div><div class="flow-line"></div></div>
+        <div class="flow-content">
+          <div class="flow-tag">실사용 장면</div>
+          <div class="flow-text">포헤르츠 젤과 함께 쓰는 장면, 피부결 변화 비포/애프터 포함 권장.</div>
+        </div>
+      </div>
+      <div class="flow-row">
+        <div class="flow-left"><div class="flow-dot" style="background:#2d7a4f"></div></div>
+        <div class="flow-content">
+          <div class="flow-tag">마무리 CTA</div>
+          <div class="flow-text">올리브영 세일(5/31~6/6), <b>295,850원</b>, 포토리뷰 사은품 <b>81,000원 상당</b> 안내.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. 제품 정보 -->
+<section id="product">
+  <div class="container">
+    <div class="section-eyebrow">PRODUCT</div>
+    <h2 class="section-title">제품 핵심만 알고 가세요</h2>
+
+    <div class="usp-banner">
+      <div class="usp-icon">🏥</div>
+      <div>
+        <div class="usp-label">가장 강력한 포인트</div>
+        <div class="usp-text">피부과 물방울초음파(LDM)와 <em>동일한 3/10MHz 주파수</em> 사용</div>
+        <div class="usp-sub">"피부과 안 가도 집에서 피부과급 관리"로 어필하세요</div>
+      </div>
+    </div>
+
+    <div class="modes">
+      <div class="mode m1">
+        <div class="mode-num">MODE 1</div>
+        <div class="mode-name">진정·트러블</div>
+        <div class="mode-freq">3 · 10MHz</div>
+        <div class="mode-desc">보습 / 유수분 / 트러블 진정</div>
+      </div>
+      <div class="mode m2">
+        <div class="mode-num">MODE 2</div>
+        <div class="mode-name">톤업·광채</div>
+        <div class="mode-freq">10 · 17MHz</div>
+        <div class="mode-desc">수분 충전 / 피부 광채 / 톤업</div>
+      </div>
+      <div class="mode m3">
+        <div class="mode-num">MODE 3</div>
+        <div class="mode-name">모공·탄력</div>
+        <div class="mode-freq">3 · 10 · 17MHz</div>
+        <div class="mode-desc">콜라겐 / 탄력 / 모공 케어</div>
+      </div>
+    </div>
+
+    <div class="chips">
+      <div class="chip">⚖️ 137g 초경량</div>
+      <div class="chip">🎨 화이트 / 핑크 / 실버</div>
+      <div class="chip">🔌 USB-C 충전</div>
+      <div class="chip">🦷 목·전신 사용 가능</div>
+      <div class="chip">🛡️ 무상 1년 AS</div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. 세일 정보 -->
+<section id="sale">
+  <div class="container">
+    <div class="section-eyebrow">OLIVE YOUNG SALE</div>
+    <h2 class="section-title">영상에 꼭 넣어야 할 혜택</h2>
+
+    <div class="sale">
+      <div class="sale-badge">OLIVE YOUNG</div>
+      <div class="sale-period">🗓️ 2026년 5월 31일(토) ~ 6월 6일(토)</div>
+      <div class="sale-prices">
+        <span class="price-orig">690,000원</span>
+        <span>→</span>
+        <span class="price-main">295,850원</span>
+        <span class="price-disc">57% 할인</span>
+      </div>
+      <div class="gift">
+        <div class="gift-head">🎁 포토리뷰 작성 시 사은품 100% 전원 증정</div>
+        <div class="gift-row"><span>포헤르츠 마스크젤 80g × 2개</span><span>36,000원</span></div>
+        <div class="gift-row"><span>미니튠 전용 크래들</span><span>45,000원</span></div>
+        <div class="gift-total"><span>합계</span><span>81,000원 상당 🎉</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. 추천 카피 & 해시태그 -->
+<section id="copy">
+  <div class="container">
+    <div class="section-eyebrow">COPY & HASHTAG</div>
+    <h2 class="section-title">바로 쓸 수 있는 카피</h2>
+
+    <div class="copy-items">
+      <div class="copy-item" onclick="copyText(this, '피부과 물방울초음파랑 주파수가 똑같다고? 집에서 매일 해도 되는 거잖아.')">
+        <div class="copy-prefix">🏥 피부과 연계형</div>
+        피부과 물방울초음파랑 주파수가 똑같다고? 집에서 매일 해도 되는 거잖아.
+      </div>
+      <div class="copy-item" onclick="copyText(this, '20만 원대 LDM, 다 똑같을까요? 주파수 구성까지 꼭 비교해 보세요.')">
+        <div class="copy-prefix">⚡ 스펙 비교형</div>
+        20만 원대 LDM, 다 똑같을까요? 주파수 구성까지 꼭 비교해 보세요.
+      </div>
+      <div class="copy-item" onclick="copyText(this, '처음 쓰는 LDM 홈케어라면 원조 브랜드 쿼드쎄라로.')">
+        <div class="copy-prefix">💫 입문 강조형</div>
+        처음 쓰는 LDM 홈케어라면 원조 브랜드 쿼드쎄라로.
+      </div>
+      <div class="copy-item" onclick="copyText(this, '요즘 많아진 물방울 디바이스, 기준은 결국 쿼드쎄라입니다.')">
+        <div class="copy-prefix">🏆 원조 강조형</div>
+        요즘 많아진 물방울 디바이스, 기준은 결국 쿼드쎄라입니다.
+      </div>
+      <div class="copy-item" onclick="copyText(this, '얼굴만? 아니, 목·쇄골·팔꿈치까지. 미니튠은 전신 루틴템.')">
+        <div class="copy-prefix">🌿 전신 루틴형</div>
+        얼굴만? 아니, 목·쇄골·팔꿈치까지. 미니튠은 전신 루틴템.
+      </div>
+    </div>
+
+    <div class="tags">
+      <div class="tag primary">#쿼드쎄라</div>
+      <div class="tag primary">#미니튠</div>
+      <div class="tag primary">#쿼드쎄라미니튠</div>
+      <div class="tag primary">#올리브영세일</div>
+      <div class="tag primary">#포헤르츠</div>
+      <div class="tag gray">#LDM홈케어</div>
+      <div class="tag gray">#물방울초음파</div>
+      <div class="tag gray">#피부과LDM</div>
+      <div class="tag gray">#홈케어디바이스</div>
+      <div class="tag gray">#가심비뷰티</div>
+      <div class="tag gray">#전신홈케어</div>
+    </div>
+
+    <div class="note"><b>#광고</b> 또는 <b>#협찬</b> 표기 필수 (공정거래위원회 지침)</div>
+  </div>
+</section>
+
+<!-- 6. 주의사항 -->
+<section id="rules">
+  <div class="container">
+    <div class="section-eyebrow">GUIDELINES</div>
+    <h2 class="section-title">꼭 지켜주세요</h2>
+
+    <div class="do-dont">
+      <div class="do">
+        <h4>✅ 해주세요</h4>
+        <ul>
+          <li>3중 주파수(3/10/17MHz) 언급</li>
+          <li>피부과 LDM 동일 주파수 어필</li>
+          <li>비포/애프터 또는 흡수 장면</li>
+          <li>세일가 295,850원 안내</li>
+          <li>포토리뷰 사은품 81,000원 언급</li>
+          <li>현장 + 리뷰 이어 붙여 업로드</li>
+          <li>6월 1일 자정 전 업로드</li>
+        </ul>
+      </div>
+      <div class="dont">
+        <h4>❌ 하지 마세요</h4>
+        <ul>
+          <li>타사 브랜드명 실명 언급</li>
+          <li>과장된 의료 효능 표현</li>
+          <li>임상 수치 출처 표기 누락</li>
+          <li>현장 영상 없이 리뷰만 업로드</li>
+          <li>6월 1일 이후 업로드</li>
+          <li>이 자료 외부 공유·재배포</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <b>ECO DM LAB Co., Ltd.</b><br>
+  T. 02.6415.2106 · contact@ecodmlab.com<br>
+  <span style="font-size:11px;">※ 본 가이드는 에코디엠랩 내부 기밀 자료입니다.</span>
+</footer>
+
+<script>
+  function copyText(el, text) {
+    navigator.clipboard.writeText(text).then(() => {
+      el.classList.add('copied');
+      setTimeout(() => el.classList.remove('copied'), 2000);
+    });
+  }
+</script>
+
+</body>
+</html>
