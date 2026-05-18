@@ -378,14 +378,68 @@
     }
 
     @media(max-width:600px) {
-      .hero { padding: 48px 20px 48px; }
+      /* topbar */
+      .topbar { font-size: 12px; padding: 8px 16px; line-height: 1.5; }
+      .topbar span { display: block; margin-left: 0; margin-top: 2px; opacity: .8; }
+
+      /* nav */
+      .nav-inner { padding: 0 12px; }
+      .nav a { padding: 11px 10px; font-size: 12px; }
+
+      /* hero */
+      .hero { padding: 36px 20px 36px; }
+      .hero-kicker { font-size: 11px; letter-spacing: .08em; }
+      .hero-desc { font-size: 14px; margin-bottom: 28px; }
       .hero-dates { flex-direction: column; border-radius: 12px; }
-      .hero-date { border-right: none; border-bottom: 1px solid var(--border); }
+      .hero-date { border-right: none; border-bottom: 1px solid var(--border); padding: 14px 18px; }
       .hero-date:last-child { border-bottom: none; }
-      section { padding: 44px 0; }
+      .hero-date-val { font-size: 22px; }
+
+      /* layout */
+      .wrap { padding: 0 18px; }
+      section { padding: 40px 0; }
+      .sec-title { font-size: 22px; margin-bottom: 24px; }
+
+      /* steps */
+      .step { gap: 14px; padding: 20px 0; }
+      .step-left { width: 36px; }
+      .step-name { font-size: 15px; }
+
+      /* video */
+      .video-cols { grid-template-columns: 1fr; }
+
+      /* product */
       .usp-box { padding: 22px 20px; }
-      .sale-top { padding: 24px 20px 20px; }
-      .sale-bottom { padding: 20px; }
+      .usp-title { font-size: 15px; }
+      .modes { grid-template-columns: 1fr; gap: 8px; }
+      .mode { padding: 16px; display: flex; align-items: center; gap: 14px; text-align: left; }
+      .mode-num { margin-bottom: 0; min-width: 52px; }
+      .mode-desc { margin-bottom: 0; }
+
+      /* sale */
+      .sale-top { padding: 22px 18px 18px; }
+      .sale-main { font-size: 28px; }
+      .sale-price-row { gap: 8px; }
+      .sale-bottom { padding: 18px; }
+
+      /* copy */
+      .copy-item { padding: 14px 18px 46px; }
+      .copy-btn {
+        position: absolute; left: 18px; right: auto;
+        top: auto; bottom: 12px;
+        transform: none;
+        min-height: 32px; display: flex; align-items: center;
+      }
+
+      /* collab */
+      .collab-accounts { flex-direction: column; }
+      .collab-account { font-size: 13px; padding: 10px 16px; }
+
+      /* rules */
+      .rules { grid-template-columns: 1fr; }
+
+      /* location button */
+      .nav a { min-height: 44px; display: inline-flex; align-items: center; }
     }
   </style>
 </head>
@@ -746,6 +800,14 @@
 </footer>
 
 <script>
+  // nav sticky top = topbar height (handles multi-line topbar on mobile)
+  function syncNavTop() {
+    const h = document.querySelector('.topbar').offsetHeight;
+    document.querySelector('.nav').style.top = h + 'px';
+  }
+  syncNavTop();
+  window.addEventListener('resize', syncNavTop);
+
   function toggleOliveMap(btn) {
     const map = document.getElementById('olive-map');
     const isOpen = map.style.display !== 'none';
