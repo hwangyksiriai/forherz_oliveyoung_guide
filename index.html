@@ -538,7 +538,10 @@
   <div class="wrap">
     <div class="eyebrow">Store Location</div>
     <h2 class="sec-title">방문 가능한 올리브영 위치</h2>
-    <div style="border:1px solid var(--border); border-radius:14px; overflow:hidden;">
+    <button onclick="toggleStoreList(this)" style="display:flex; align-items:center; gap:10px; background:var(--ink); color:#fff; border:none; border-radius:12px; padding:14px 22px; font-size:14px; font-weight:700; font-family:inherit; cursor:pointer; margin-bottom:14px;">
+      <span>🏪</span> 방문 가능한 올영 보기
+    </button>
+    <div id="store-list" style="display:none; border:1px solid var(--border); border-radius:14px; overflow:hidden;">
       <table style="width:100%; border-collapse:collapse; font-size:13px;">
         <thead>
           <tr style="background:var(--ink); color:#fff;">
@@ -838,11 +841,11 @@
   syncNavTop();
   window.addEventListener('resize', syncNavTop);
 
-  function toggleOliveMap(btn) {
-    const map = document.getElementById('olive-map');
-    const isOpen = map.style.display !== 'none';
-    map.style.display = isOpen ? 'none' : 'block';
-    btn.innerHTML = isOpen ? '<span>🏪</span> 가까운 올영 확인하기' : '<span>✕</span> 닫기';
+  function toggleStoreList(btn) {
+    const list = document.getElementById('store-list');
+    const isOpen = list.style.display !== 'none';
+    list.style.display = isOpen ? 'none' : 'block';
+    btn.innerHTML = isOpen ? '<span>🏪</span> 방문 가능한 올영 보기' : '<span>✕</span> 닫기';
   }
 
   function openLightbox(src) {
