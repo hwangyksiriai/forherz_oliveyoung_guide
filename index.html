@@ -427,9 +427,18 @@
       .usp-box { padding: 22px 20px; }
       .usp-title { font-size: 15px; }
       .modes { grid-template-columns: 1fr; gap: 8px; }
-      .mode { padding: 16px; display: flex; align-items: center; gap: 14px; text-align: left; }
-      .mode-num { margin-bottom: 0; min-width: 52px; }
-      .mode-desc { margin-bottom: 0; }
+      .mode {
+        padding: 14px 16px;
+        display: grid;
+        grid-template-columns: 56px 1fr;
+        grid-template-rows: auto auto auto;
+        column-gap: 12px;
+        text-align: left;
+      }
+      .mode-num { grid-column: 1; grid-row: 1 / 3; align-self: center; margin-bottom: 0; }
+      .mode-name { grid-column: 2; grid-row: 1; margin-bottom: 2px; }
+      .mode-freq { grid-column: 2; grid-row: 2; margin-bottom: 0; }
+      .mode-desc { grid-column: 1 / 3; grid-row: 3; margin-bottom: 0; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); }
 
       /* sale */
       .sale-top { padding: 22px 18px 18px; }
